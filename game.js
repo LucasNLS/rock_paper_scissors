@@ -15,13 +15,13 @@ function playRound(playerSelection, computerSelection) {
     case "rock":
       switch (computerSelection) {
         case "rock":
-          return "Draw!";
+          return 0;
           break;
         case "paper":
-          return "You Lose! Paper beats Rock";
+          return 2;
           break;
         case "scissors":
-          return "You Win! Rock beats Scissors";
+          return 1;
           break;
         default:
           break;
@@ -31,13 +31,13 @@ function playRound(playerSelection, computerSelection) {
     case "paper":
       switch (computerSelection) {
         case "rock":
-          return "You Win! Paper beats Rock";
+          return 1;
           break;
         case "paper":
-          return "Draw!";
+          return 0;
           break;
         case "scissors":
-          return "You Lose! Scissors beat Paper";
+          return 2;
           break;
         default:
           break;
@@ -47,13 +47,13 @@ function playRound(playerSelection, computerSelection) {
     case "scissors":
       switch (computerSelection) {
         case "rock":
-          return "You Lose! Rock beats Scissors";
+          return 2;
           break;
         case "paper":
-          return "You Win! Scissors beat Paper";
+          return 1;
           break;
         case "scissors":
-          return "Draw!";
+          return 0;
           break;
         default:
           break;
@@ -62,8 +62,34 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-const computerSelection = getComputerChoice();
-console.log(computerSelection);
-const playerSelection = "rock";
-console.log(playerSelection);
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+  let computerSelection;
+  let playerSelection;
+  let computerScore = 0;
+  let playerScore = 0;
+  let result = 0;
+  for (let i = 0; i < 5; i++) {
+    computerSelection = getComputerChoice();
+    playerSelection = prompt("Enter your choice...");
+    result = playRound(playerSelection, computerSelection);
+    if (result == 0) {
+      console.log("Draw!");
+    } else if (result == 1) {
+      console.log(`You Win! ${playerSelection} beats ${computerSelection}`);
+      playerScore++;
+    } else if (result == 2) {
+      console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
+      computerScore++;
+    }
+  }
+
+  if (computerScore > playerScore) {
+    console.log("You Lose!");
+  } else if (computerScore < playerScore) {
+    console.log("You Win!");
+  } else {
+    console.log("Draw");
+  }
+}
+
+game();
