@@ -1,3 +1,9 @@
+let computerSelection;
+let playerSelection;
+let computerScore = 0;
+let playerScore = 0;
+let result = 0;
+
 function getComputerChoice() {
   let selection = Math.floor(Math.random() * 3);
   if (selection == 0) {
@@ -10,8 +16,7 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  let playerSelect = playerSelection.toLowerCase();
-  switch (playerSelect) {
+  switch (playerSelection) {
     case "rock":
       switch (computerSelection) {
         case "rock":
@@ -63,33 +68,29 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-  let computerSelection;
-  let playerSelection;
-  let computerScore = 0;
-  let playerScore = 0;
-  let result = 0;
-  for (let i = 0; i < 5; i++) {
-    computerSelection = getComputerChoice();
-    playerSelection = prompt("Enter your choice...");
-    result = playRound(playerSelection, computerSelection);
-    if (result == 0) {
-      console.log("Draw!");
-    } else if (result == 1) {
-      console.log(`You Win! ${playerSelection} beats ${computerSelection}`);
-      playerScore++;
-    } else if (result == 2) {
-      console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
-      computerScore++;
-    }
+  computerSelection = getComputerChoice();
+  playerSelection = this.id;
+  result = playRound(playerSelection, computerSelection);
+  if (result == 0) {
+    console.log("Draw!");
+  } else if (result == 1) {
+    console.log(`You Win! ${playerSelection} beats ${computerSelection}`);
+    playerScore++;
+  } else if (result == 2) {
+    console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
+    computerScore++;
   }
 
-  if (computerScore > playerScore) {
-    console.log("You Lose!");
-  } else if (computerScore < playerScore) {
-    console.log("You Win!");
-  } else {
-    console.log("Draw");
+  if (playerScore == 5) {
+    console.log("You Win Overall");
+    playerScore = 0;
+    computerScore = 0;
+  } else if (computerScore == 5) {
+    console.log("You Win Overall");
+    playerScore = 0;
+    computerScore = 0;
   }
 }
 
-game();
+const button = document.querySelectorAll("button");
+button.forEach((sbutton) => sbutton.addEventListener("click", game));
