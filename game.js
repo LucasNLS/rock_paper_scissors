@@ -4,6 +4,7 @@ let computerScore = 0;
 let playerScore = 0;
 let result = 0;
 
+//Gets random choice for computer
 function getComputerChoice() {
   let selection = Math.floor(Math.random() * 3);
   if (selection == 0) {
@@ -15,6 +16,7 @@ function getComputerChoice() {
   }
 }
 
+//Plays a round of rock paper scissors, checking who wins and returning accordingly
 function playRound(playerSelection, computerSelection) {
   switch (playerSelection) {
     case "rock":
@@ -67,30 +69,35 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
+//Main game function.
 function game() {
   computerSelection = getComputerChoice();
+
+  //Get's player selection from button press.
   playerSelection = this.id;
   result = playRound(playerSelection, computerSelection);
   if (result == 0) {
-    console.log("Draw!");
+    div.textContent = `Draw! Player Score : ${playerScore} Computer Score: ${computerScore}`;
   } else if (result == 1) {
-    console.log(`You Win! ${playerSelection} beats ${computerSelection}`);
     playerScore++;
+    div.textContent = `${playerSelection} beats ${computerSelection} Player Score : ${playerScore} Computer Score: ${computerScore}`;
   } else if (result == 2) {
-    console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
     computerScore++;
+    div.textContent = `${computerSelection} beats ${playerSelection} Player Score : ${playerScore} Computer Score: ${computerScore}`;
   }
 
+  //Game ends when either player gets 5 points.
   if (playerScore == 5) {
-    console.log("You Win Overall");
+    div.textContent = `You Win! Press any button to start again`;
     playerScore = 0;
     computerScore = 0;
   } else if (computerScore == 5) {
-    console.log("You Win Overall");
+    div.textContent = `You Lose! Press any button to start again`;
     playerScore = 0;
     computerScore = 0;
   }
 }
 
 const button = document.querySelectorAll("button");
+const div = document.querySelector(".result");
 button.forEach((sbutton) => sbutton.addEventListener("click", game));
